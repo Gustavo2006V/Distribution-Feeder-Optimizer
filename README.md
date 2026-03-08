@@ -73,10 +73,10 @@ I ran my optimization algorithm with limitations on the number of recursive call
 # Capacitor optimization limited by only one recursive call
 My optimization decided to put the capacitor in parallel with the third load. The overall cost of running the distribution system after 20 years is:
 
-937225 dollars.
+804800 dollars.
 
 # Capacitor optimization limited by two recursive calls
 
 My optimization algorithm decided to put capacitors in parallel with the third and second loads. The overall cost of running the three phase distribution system after 20 years came out to be:
 
-914971 dollars.
+713882 dollars.
