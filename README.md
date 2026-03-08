@@ -15,7 +15,7 @@ I built a program which simulates a three phase distribution system. My program 
 # Inputs
 -Substation voltage is 12.47 kV (phase voltage)
 -The kilo VAR value of the capacitor: 200
--Real power for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 400 kW, 500 kW, 600 kW
+-Real power for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 400 kW, 600 kW, 500 kW
 -Power factors for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 0.8, 0.85, 0.9. All of these power factors are lagging.
 -Resistance per mile is 0.3 ohms
 -Inductance per mile is 0.4j ohms
