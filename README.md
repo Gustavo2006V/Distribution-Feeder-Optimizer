@@ -79,4 +79,4 @@ My optimization decided to put the capacitor in parallel with the third load. Th
 
 My optimization algorithm decided to put capacitors in parallel with the third and second loads. The overall cost of running the three phase distribution system after 20 years came out to be:
 
-713882 dollars.
+741777 dollars.
