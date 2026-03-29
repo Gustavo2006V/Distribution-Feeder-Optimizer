@@ -34,9 +34,9 @@ I will first describe the means by which I analyze a three phase distribution sy
 
 # Analyzing the 3 phase distribution system
 
-1 - I first assume that the node voltages are equivalent to the substation voltage.
+1 - I first assume that all of the node voltages are equivalent to the substation voltage.
 2 - I then calculate the load current by transforming the power associated with the load to current by getting the complex conjugate of apparent power and dividing it by the node voltage.
-3 - Using these load currents I calculate the line currents through an iterative process by starting with the node farthest from the substation voltage and then moving to the lines closest to the substation. I assume that the line current is the sum of the respective load current and the line current closest to the line and farthest from the substation voltage. The line current for the line farthest from the substation is simply the load current.
+3 - Using these load currents I calculate the line currents through an iterative process by starting with the node farthest from the substation voltage and then moving to the lines closest to the substation. I assume that the line current is the sum of the load current associated with the node connected to the line and farthest away from the substation and the line current closest to the line and farthest from the substation voltage. The line current for the line farthest from the substation is simply the load current.
 4 - The node voltages are recalculated. I start from the node closest to the substation voltage and iteratively move gradually to the node farthest from the substation. For the node closest to the substation voltage I subtract the substation voltage by the voltage drop, which is given by multiplying the line current with the total impedance between the substation and the node. I repeat this process, but instead of using the substation voltage I use the voltage associated with the previous node to get the respective node voltage.
 5 - I repeat the process starting at step 2 with the newly updated node voltages. This process is repeated until the node voltages converge.
 
@@ -44,16 +44,16 @@ I will first describe the means by which I analyze a three phase distribution sy
 
 1 - I create a loop which covers all possible nodes in my distribution system and call a function with the node as one of the inputs.
 2 - The function calculates the expected cost after 20 years of putting the capacitor in parallel with that specific node.
-3 - I then call the same function within the function iteratively for all the different nodes and calculate the cost while taking into account capacitor placements and costs.
+3 - I then call the same function within the function recursively for all the different nodes and calculate the cost while taking into account capacitor placements and costs.
 4 - All of the costs of the recursive calls are compared and the one with the lowest overall cost after 20 years is returned. The associated list of capacitors placed in parallel with certain loads is also returned.
-5 - The amount of recursive calls depends on the specific input.
+5 - The amount of recursive calls depends on input.
 
 # Calculating cost for the capacitor optimization algorithm
 
 I calculate the cost of running the three phase distribution system after 20 years. I calculate the power loss associated with each line using the equation:
 P_loss = |I|²R
 where I is the magnitude of the line current and R is the resistance of the line.
-I then multiply the power loss by the cost of electricity per kilowatt hour, the number of hours per year, and the number of years (20 years). I do the aforementioned process for all the lines in the single phase representation and add all of the costs. I then multiply the total cost by three to take into account the fact that this is a three phase distribution system.
+I then multiply the power loss by the cost of electricity per watt hour, the number of hours per year, and the number of years (20 years). I do the aforementioned process for all the lines in the single phase representation and add all of the costs. I then multiply the total cost by three to take into account the fact that this is a three phase distribution system.
 Finally, I add the cost of installing the capacitors as well as the cost associated with the reactive power rating of the capacitors.
 
 # Results for analysis of my three phase distribution system
