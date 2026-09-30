@@ -9,12 +9,12 @@ I built a program which simulates a three phase distribution system. My program 
 - All loads are assumed to be constant power loads.
 - The impedance of each line segment is assumed to be uniform per mile.
 - Capacitors are modeled as ideal reactive power injections placed in parallel with the load.
-- The substation voltage is assumed to remain constant at 12.47 kV.
+- The substation voltage(phase voltage) is assumed to remain constant at 7.2 kV.
 - Line losses are calculated using abs(I)^2 * R
 
 ## Inputs
 
-- Substation voltage is 12.47 kV (phase voltage)
+- Substation voltage is 7.2 kV (phase voltage)
 - The kilo VAR value of the capacitor: 200
 - Real power for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 400 kW, 600 kW, 500 kW
 - Power factors for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 0.8, 0.85, 0.9. All  lagging.
@@ -62,30 +62,35 @@ Finally, I add the cost of installing the capacitors as well as the cost associa
 
 After utilizing the algorithm described in analyzing the three phase distribution system, my node voltages are:
 
-12,336.94, 12,266.45 , 12,246.29
+7123.18, 7082.49, 7070.85 (phase voltages)
 
 with the first voltage being the node voltage closest to the substation and the voltages that come after being farther away from the substation.
 
 My line currents came out as:
 
-- 121.70 - 75.18j
-- 89.38 - 50.73j
-- 40.68 - 20.08j
+- 70.26 - 43.40j
+- 51.60 - 29.29j
+- 23.48 - 11.60j
 
 with the first line current being the current closest to the substation and the line currents that come after being farther away from the substation.
 
 ## Results for my capacitor optimization algorithm
 
 I ran my optimization algorithm with limitations on the number of recursive calls that it could make. I did this with limitations of 1 and 2 recursive calls.
+### Costs of no capacitor placement
+
+The cost of running the distribution feeder for 20 years gives a revenue of 
+
+309,175.98 dollars
 
 ### Capacitor optimization limited by only one recursive call
 
 My optimization decided to put the capacitor in parallel with the third load. The overall cost of running the distribution system after 20 years is:
 
-822,245.25 dollars.
+275,380.61 dollars.
 
 ### Capacitor optimization limited by two recursive calls
 
 My optimization algorithm decided to put capacitors in parallel with the second and third loads. The overall cost of running the three phase distribution system after 20 years came out to be:
 
-752,952.22 dollars.****
+253,619.46 dollars.
