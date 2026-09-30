@@ -1,5 +1,9 @@
 
-def CalculatingCost(lineCurrents, R, numberOfCapacitors, lengthOfLines, CapacitorVar):
+# I calculate the cost a 20 year old distribution feeder simulation based on the 
+# number of used capacitors the VAR associated with the capacitors; and the heat loss
+# based on the line current, length of lines and the Resistance per mile(R).
+
+def cost(lineCurrents, R, numberOfCapacitors, lengthOfLines, CapacitorVar):
 	costPerVar = 10 * 1e-3
 	capacitorInstallationCost = 2000 + CapacitorVar * costPerVar
 	totalInstallationCost = numberOfCapacitors * capacitorInstallationCost

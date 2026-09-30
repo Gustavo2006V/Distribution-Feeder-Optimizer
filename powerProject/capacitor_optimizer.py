@@ -1,7 +1,8 @@
-from Economic_Analyzer import CalculatingCost
+from Economic_Analyzer import cost
 from Power import loadCurrents_calculate, lineCurrents_calculate, busVoltages_calculate, checkConvergence_pu
 import math
-
+# I calculate the current along the wire which holds the nodes("lineCurrents"); the nodes are connected to the loads.
+# I use the function checkConvergence_pu to check the validity of my results 
 def finalOutput(realPower, powerFactors):
 	totalIterations = 100
 	iterations = 0
@@ -23,9 +24,14 @@ def finalOutput(realPower, powerFactors):
 		voltages = secondVoltages
 		secondVoltages = temporaryVoltages
 	return lineCurrents 
-def iterator(realPower, PowerFactors, CapacitorValues, Current, List, Limit, R, lengthOfLines):
+# With this function I iterate over all possible capacitor combinatinos(parallel to the load and associated with 
+# a node). I try to find the lowest cost associated with a capacitor combination by comparing the cost of all capacitor combinations. 
+# There is a limited ammount of capcitors that be can use given by numberOfAvailCapacitors
+# The function returns [capacitor combination, cost(after 20 year analysis)]
+def iterator(realPower, PowerFactors, CapacitorVar, Node, List, numberOfAvailCapacitors, Resistanc_P_M, lengthOfLines):
+	
 
-	if Current in List or Limit == len(List):
+	if Node in List or numberOfAvailCapacitors == len(List):
 		temporaryList = []
 		newList = []
 		newList.append(temporaryList)
@@ -33,26 +39,27 @@ def iterator(realPower, PowerFactors, CapacitorValues, Current, List, Limit, R, 
 		return newList
 
 	listCopy = List.copy()
-	listCopy.append(Current)
-
-	powerOfCurrent = realPower[Current]
-	powerFactorCurrent = PowerFactors[Current]
+	listCopy.append(Node)
+	powerOfNode = realPower[Node]
 
 	copiedPowerFactors = PowerFactors.copy()
 
-	copiedPowerFactors[Current] = improved_PF(powerOfCurrent, CapacitorValues, copiedPowerFactors[Current])
+	copiedPowerFactors[Node] = improved_PF(powerOfNode, CapacitorVar, copiedPowerFactors[Node])
 	lineCurrents = finalOutput(realPower, copiedPowerFactors)
 	
-	cost = CalculatingCost(lineCurrents, R, len(listCopy), lengthOfLines, CapacitorValues)
+	Cost = cost(lineCurrents, Resistanc_P_M, len(listCopy), lengthOfLines, CapacitorVar)
 
-	capacitorPlacementCost = []
-	capacitorPlacementCost.append(listCopy)
-	capacitorPlacementCost.append(cost)
-	for i in range(len(realPower)):
-		hold = iterator(realPower,copiedPowerFactors, CapacitorValues,i, listCopy, Limit, R , lengthOfLines)
-		if hold[1] < capacitorPlacementCost[1]:
-			capacitorPlacementCost = hold
-	return capacitorPlacementCost
+	lowcapNodesAndCost = []
+	lowcapNodesAndCost.append(listCopy)
+	lowcapNodesAndCost.append(Cost)
+
+	for Node2 in range(len(realPower)):
+		capNodesAndCost = iterator(realPower, copiedPowerFactors, CapacitorVar, Node2, listCopy, numberOfAvailCapacitors, Resistanc_P_M , lengthOfLines)
+		if capNodesAndCost[1] < lowcapNodesAndCost[1]:
+			lowcapNodesAndCost = capNodesAndCost
+	return lowcapNodesAndCost
+# Here I calculate the improved power factor based on the value of the imaginary power of the
+#  load subtracted by the imaginary power of the capacitor, the real power of the load.
 def improved_PF(realPower, capacitorVAR, previousPF):
 	apparentPower = realPower/previousPF
 	previousImaginaryPower = apparentPower * math.sin(math.acos(previousPF))
