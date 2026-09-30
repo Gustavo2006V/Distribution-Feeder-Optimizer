@@ -16,21 +16,20 @@ I built a program which simulates a three phase distribution system. My program 
 -Substation voltage is 12.47 kV (phase voltage)
 -The kilo VAR value of the capacitor: 200
 -Real power for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 400 kW, 600 kW, 500 kW
--Power factors for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 0.8, 0.85, 0.9. All of these power factors are lagging.
--Resistance per mile is 0.3 ohms
--Inductance per mile is 0.4j ohms
--Distance between nodes, the first distance is closest to the substation and the last value is farthest from the substation: 2, 1.5, 1.0 miles
--Capacitor installation cost: 2000 dollars
--Projected lifetime for a 200 kilo VAR capacitor is 20 years
--Money per kilowatt hour is 10 cents
--Cost per kilo VAR is 10 dollars
+-Power factors for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 0.8, 0.85, 0.9. All  lagging.
+-Resistance per mile is 0.3 ohms (value cannot be changed)
+-Inductance per mile is 0.4j ohms (value cannot be changed)
+-Distance between loads, the first distance is closest to the substation and the last value is farthest from the substation: 2, 1.5, 1.0 miles
+-Capacitor installation cost: 2000 dollars (value cannot be changed)
+-Projected lifetime for a 200 kilo VAR capacitor is 20 years(value cannot be changed)
+-Money per kilowatt hour is 10 cents(value cannot be changed)
+-Cost per kilo VAR is 10 dollars(value cannot be changed)
 
-Hours per year: 8760
+Hours per year: 8760 (value cannot be changed)
 
 # Description of my computer algorithm
 
-My program does two distinct things. It simulates a three phase distribution system and it calculates the best capacitor location to reduce costs.
-I will first describe the means by which I analyze a three phase distribution system with predetermined values, and then I will describe the capacitor optimization algorithm.
+My program does two distinct things. It simulates a three-phase distribution system, and it calculates the best capacitor combinations, parallel to the load based on lowest costs. I will first describe the means by which I analyze a three-phase distribution system with predetermined values, and then I will describe the capacitor optimization algorithm.
 
 # Analyzing the 3 phase distribution system
 
@@ -42,9 +41,9 @@ I will first describe the means by which I analyze a three phase distribution sy
 
 # Capacitor optimization algorithm
 
-1 - I create a loop which covers all possible nodes in my distribution system and call a function with the node as one of the inputs.
-2 - The function calculates the expected cost after 20 years of putting the capacitor in parallel with that specific node.
-3 - I then call the same function within the function recursively for all the different nodes and calculate the cost while taking into account capacitor placements and costs.
+1 - I create a loop which covers all possible nodes in my distribution system and call a function with the choosen node as one of the inputs.
+2 - The function calculates the expected cost after 20 years of putting the capacitor in parallel with that specific node(load).
+3 - I then call the same function within the function recursively for all the different nodes and calculate the cost while taking into account previous capacitor placements and costs.
 4 - All of the costs of the recursive calls are compared and the one with the lowest overall cost after 20 years is returned. The associated list of capacitors placed in parallel with certain loads is also returned.
 5 - The amount of recursive calls depends on input.
 
