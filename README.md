@@ -58,24 +58,24 @@ Finally, I add the cost of installing the capacitors as well as the cost associa
 # Results for analysis of my three phase distribution system
 
 After utilizing the algorithm described in analyzing the three phase distribution system, my node voltages are:
-12454 V, 12444 V, and 12440 V,
+12,336.94, 12,266.45 , 12,246.29
 with the first voltage being the node voltage closest to the substation and the voltages that come after being farther away from the substation.
 My line currents came out as:
-121.66 + j71.46
-89.27 + j47.73
-40.55 + j18.69
+121.70 - 75.18j
+89.38 - 50.73j
+40.68 - 20.08j
 with the first line current being the current closest to the substation and the line currents that come after being farther away from the substation.
 
 # Results for my capacitor optimization algorithm
-I ran my optimization algorithm with limitations on the number of recursive calls that it could make. I did this with limitations of 1, 2, and 3 recursive calls.
+I ran my optimization algorithm with limitations on the number of recursive calls that it could make. I did this with limitations of 1 and 2 recursive calls.
 
 # Capacitor optimization limited by only one recursive call
-My optimization decided to put the capacitor in parallel with the third load. The overall cost of running the distribution system after 20 years is:
+My optimization decided to put the capacitor in parallel with the second load. The overall cost of running the distribution system after 20 years is:
 
-804800 dollars.
+822,245.25 dollars.
 
 # Capacitor optimization limited by two recursive calls
 
-My optimization algorithm decided to put capacitors in parallel with the third and second loads. The overall cost of running the three phase distribution system after 20 years came out to be:
+My optimization algorithm decided to put capacitors in parallel with the first and second loads. The overall cost of running the three phase distribution system after 20 years came out to be:
 
-741777 dollars.
+752,952.22 dollars.
