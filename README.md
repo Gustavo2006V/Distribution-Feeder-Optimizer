@@ -19,7 +19,7 @@ I built a program which simulates a three phase distribution system. My program 
 - Real power for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 400 kW, 600 kW, 500 kW
 - Power factors for the 3 different loads, the first one is closest to the substation and the last one is the farthest from the substation: 0.8, 0.85, 0.9. All  lagging.
 - Resistance per mile is 0.3 ohms (value cannot be changed)
-- Inductance per mile is 0.4j ohms (value cannot be changed)
+- Reactacne per mile is 0.4j ohms (value cannot be changed)
 - Distance between loads, the first distance is closest to the substation and the last value is farthest from the substation: 2, 1.5, 1.0 miles
 - Capacitor installation cost: 2000 dollars (value cannot be changed)
 - Projected lifetime for a 200 kilo VAR capacitor is 20 years(value cannot be changed)
@@ -76,7 +76,7 @@ with the first line current being the current closest to the substation and the 
 
 ## Results for my capacitor optimization algorithm
 
-I ran my optimization algorithm with limitations on the number of recursive calls that it could make. I did this with limitations of 1 and 2 recursive calls.
+I ran my optimization algorithm with limitations on the number of recursive calls that it could make. I did this with limitations of 1 and 2 possible capacitors(recursive calls).
 ### Costs of no capacitor placement
 
 The cost of running the distribution feeder for 20 years gives a revenue of 
